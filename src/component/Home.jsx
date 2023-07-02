@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const Home = () => {
+const Home = (props) => {
+  useEffect(()=>{
+  props.setProgress(30)
+  
+  },[props])
+ 
+  
+   
   return (
     <div>Home</div>
   )
