@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {api} from "../envirement/envirement"
 
-const Register = (props) => {
+const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+ 
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [nameError, setNameError] = useState(false);
+
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,12 +35,7 @@ const Register = (props) => {
       setPasswordError(false);
     }
 
-    if (name.trim() === '') {
-      setNameError(true);
-      isValid = false;
-    } else {
-      setNameError(false);
-    }
+
 
     return isValid;
   };
@@ -54,9 +50,6 @@ const Register = (props) => {
       case 'password':
         setPassword(value);
         break;
-      case 'name':
-        setName(value);
-        break;
       default:
         break;
     }
@@ -68,17 +61,17 @@ const Register = (props) => {
 
     if (validateForm()) {
       try {
-        props.setProgress(20);
+        props.setProgress(0);
         const config = {
           method: 'post',
-          url: 'http://localhost:5000/register',
+          url: `${api.local}/login`,
           headers: {
             'Content-Type': 'application/json',
           },
           data: JSON.stringify({
             email,
             password,
-            name,
+            
           }),
         };
 
@@ -96,9 +89,9 @@ const Register = (props) => {
             progress: undefined,
             theme: "colored",
             });
+            localStorage.setItem("login", JSON.stringify(response.data))
           setEmail('');
           setPassword('');
-          setName('');
           props.setProgress(0);
         }else{
 
@@ -139,7 +132,7 @@ const Register = (props) => {
     <>
 
     <div className="container-fuild my-5">
-      <h3 style={{textAlign:"center"}}> Please Register </h3>
+      <h3 style={{textAlign:"center"}}> Please Login </h3>
     </div>
     <div
       style={{
@@ -148,7 +141,7 @@ const Register = (props) => {
         alignItems: 'center',
       }}
     >
-      <div style={{ border: '1px solid black',borderRadius:"9px" }}>
+      <div style={{ border: '1px solid black' ,borderRadius:"9px" }}>
         <form
           style={{
             display: 'flex',
@@ -182,16 +175,7 @@ const Register = (props) => {
             helperText={passwordError ? 'Password must be at least 6 characters' : ''}
             style={{ marginBottom: '20px', width: '100%' }}
           />
-          <TextField
-            label="Name"
-            variant="outlined"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            error={nameError}
-            helperText={nameError ? 'Name is required' : ''}
-            style={{ marginBottom: '20px', width: '100%' }}
-          />
+        
           <Button type="submit" variant="contained" color="primary" style={{ width: '100%' }}>
             Submit
           </Button>
@@ -203,4 +187,4 @@ const Register = (props) => {
 
 };
 
-export default Register;
+export default Login;

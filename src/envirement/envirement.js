@@ -1,9 +1,8 @@
 
 
-const api={
+export const api={
     server:"https://vercel.com",
-    local:"http://localhost:6000",
-    ngrok:"https://ff02-47-15-35-43.ngrok-free.app"
+    local:"http://localhost:5000",
+    ngrok:"https://5a56-2409-4089-a111-45a2-6165-e44f-acfc-d619.ngrok-free.app"
 }
 
-module.export=api;

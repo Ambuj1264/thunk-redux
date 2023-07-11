@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -18,6 +18,18 @@ function NavBar() {
     setBoolState(!boolState)
         dispatch(sidebar(boolean))
   }  
+  const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+useEffect(()=>{
+  if (isMobile) {
+    //   const toggles=(boolean)=>{
+      setBoolState(boolState)
+          dispatch(sidebar(boolState))
+    // } 
+    // toggles()
+  } else {
+    console.log('User is not using a mobile device');
+  }
+},[])
 
   return (
     <Wrapper className='mainmenu'>

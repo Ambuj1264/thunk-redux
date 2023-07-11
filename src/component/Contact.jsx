@@ -12,18 +12,26 @@ function Contact() {
   let [color, setColor] = useState("#ffffff");
 
   return (
-    <div className="sweet-loading">
+    <div
+      className="sweet-loading"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
       <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
-      <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" />
+      <input
+        value={color}
+        onChange={(input) => setColor(input.target.value)}
+        placeholder="Color of the loader"
+      />
 
       <ClipLoader
         color={color}
         loading={loading}
-        cssOverride={
- { display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-}}
+        cssOverride={{ display: "block", margin: "0 auto", borderColor: "red" }}
         size={150}
         aria-label="Loading Spinner"
         data-testid="loader"
