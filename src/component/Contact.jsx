@@ -1,43 +1,73 @@
-import { useState, CSSProperties } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector,useDispatch } from 'react-redux';
+import { fetchProducts } from '../redux/action';
+import { Dropdown } from 'primereact/dropdown';
+export default function Contact() {
+  const [state,setState]= React.useState("")
+  const [value,setValue]= React.useState("")
+  const [selectedCity, setSelectedCity] = React.useState(null);
+  const dispatch= useDispatch()
+  const product =useSelector(state=>state.product.product)
 
-// const override: CSSProperties = {
-//   display: "block",
-//   margin: "0 auto",
-//   borderColor: "red",
-// };
+      React.useEffect(()=>{
+          dispatch(fetchProducts())
+      },[dispatch])
+  const top100Films=React.useMemo(()=>product,[product])
 
-function Contact() {
-  let [loading, setLoading] = useState(true);
-  let [color, setColor] = useState("#ffffff");
 
+  const submitData=(e)=>{
+    // e.preventDefault();
+    console.log(1,state,2,value,"dataddd");
+  }
+  const cities = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+  ];
   return (
-    <div
-      className="sweet-loading"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
-      <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
-      <input
-        value={color}
-        onChange={(input) => setColor(input.target.value)}
-        placeholder="Color of the loader"
+    <>
+    <Stack spacing={2} sx={{ width: 300 }}>
+      <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        onChange={(e,value)=> setState(value)}
+        options={top100Films?.map((option) => option.title)}
+        renderInput={(params) => <TextField {...params} label="freeSolo"  />}
       />
-
-      <ClipLoader
-        color={color}
-        loading={loading}
-        cssOverride={{ display: "block", margin: "0 auto", borderColor: "red" }}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
+      <Autocomplete
+        freeSolo
+        id="free-solo-2-demo"
+        disableClearable
+        onChange={(e,value)=> setValue(value)}
+        options={top100Films.map((option) => option.title)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Search input"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+          
+          />
+        )}
       />
-    </div>
+     <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
+          placeholder="Select a City" className="w-full md:w-14rem" />
+              <button className="btn btn-primary" onClick={()=>submitData()}> button </button>
+    </Stack>
+    {/* <div className="card flex justify-content-center">
+     
+  </div> */}
+  
+      </>
   );
 }
 
-export default Contact;
+// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+

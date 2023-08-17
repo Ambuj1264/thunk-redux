@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./component/Home";
@@ -13,6 +14,9 @@ import Service from "./component/Service";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from "react-top-loading-bar";
+import ClearIconDemo from "./component/A";
+import Portfolio from "./component/Portfolio";
+
 const App = () => {
   const [progress, setProgress] = useState(0);
 
@@ -59,6 +63,14 @@ const App = () => {
               <Route
                 path="/service"
                 element={<Service setProgress={setProgress} />}
+              />
+              <Route
+                path="/a"
+                element={<ClearIconDemo setProgress={setProgress} />}
+              />
+              <Route
+                path="/portfolio"
+                element={<Portfolio setProgress={setProgress} />}
               />
             </Routes>
           </div>
