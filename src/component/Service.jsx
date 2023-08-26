@@ -13,7 +13,7 @@ export default function Service(props) {
   const fetchData = useCallback(async () => {
     props.setProgress(0);
     dispatch(fetchProducts());
-  }, [props, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     props.setProgress(0);
@@ -21,8 +21,8 @@ export default function Service(props) {
     setTimeout(() => {
       setIsLoading(false);
       props.setProgress(100);
-    }, 2000);
-  }, [fetchData, props]);
+    }, 1300);
+  }, [fetchData]);
 
   const myProduct = useMemo(() => product, [product]);
 

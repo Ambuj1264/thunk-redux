@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./component/Home";
 import NavBar from "./component/Navbar";
@@ -16,16 +16,30 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from "react-top-loading-bar";
 import ClearIconDemo from "./component/A";
 import Portfolio from "./component/Portfolio";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch()
 
+const getValueOfProgressBar= useCallback(()=>{
+dispatch(setProgress())
+},[])
   useEffect(() => {
     ProgressBar();
-  }, []);
+  }, [getValueOfProgressBar]);
 
   const ProgressBar = () => {
-    setProgress(10);
+
+   const myId=  setInterval((data) => {
+      let i =10
+      console.log(i++,"dtat");
+      setProgress(i++);
+     }, 100);
+      clearInterval(myId)  
+    
+
+   
   };
 
   return (
@@ -34,7 +48,7 @@ const App = () => {
         <LoadingBar
           color="#f11946"
           progress={progress}
-          onLoaderFinished={() => setProgress(0)}
+          onLoaderFinished={() => ProgressBar() }
         />
         <NavBar />
         <div className="container-fluid d-flex ">

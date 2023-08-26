@@ -22,3 +22,9 @@ export const sidebar =(boolean)=>{
     payload:boolean
   }
 }
+export const setProgress =(payload)=>{
+  return {
+    type: "progressbar",
+    payload:payload
+  }
+}

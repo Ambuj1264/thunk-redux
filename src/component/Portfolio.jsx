@@ -1,12 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProgress } from '../redux/action';
 
 export default function Portfolio() {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
+    const state = useSelector((state)=> state.setProgress)
+    console.log(state,"data");
+    const dispatch= useDispatch()
+
 
     useEffect(() => {
+        dispatch(setProgress(50))
+
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
             labels: ['A', 'B', 'C'],
